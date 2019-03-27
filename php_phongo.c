@@ -2846,6 +2846,9 @@ PHP_RINIT_FUNCTION(mongodb)
 		zend_hash_init(MONGODB_G(subscribers), 0, NULL, ZVAL_PTR_DTOR, 0);
 	}
 
+	/* Initialize HashTable for persistent clients */
+	zend_hash_init_ex(&mongodb_globals->pclients, 0, NULL, php_phongo_pclient_dtor, 1, 0);
+
 	return SUCCESS;
 }
 /* }}} */
@@ -2867,7 +2870,7 @@ PHP_GINIT_FUNCTION(mongodb)
 	memset(mongodb_globals, 0, sizeof(zend_mongodb_globals));
 	mongodb_globals->bsonMemVTable = bsonMemVTable;
 
-	/* Initialize HashTable for persistent clients */
+	// /* Initialize HashTable for persistent clients */
 	// zend_hash_init_ex(&mongodb_globals->pclients, 0, NULL, php_phongo_pclient_dtor, 1, 0);
 }
 /* }}} */
@@ -3042,6 +3045,9 @@ PHP_MSHUTDOWN_FUNCTION(mongodb)
 /* {{{ PHP_RSHUTDOWN_FUNCTION */
 PHP_RSHUTDOWN_FUNCTION(mongodb)
 {
+
+	zend_hash_destroy(&MONGODB_G(pclients));
+	
 	/* Destroy HashTable for APM subscribers, which was initialized in RINIT */
 	if (MONGODB_G(subscribers)) {
 		zend_hash_destroy(MONGODB_G(subscribers));
