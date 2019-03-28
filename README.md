@@ -1,5 +1,5 @@
 # MongoDB PHP Driver
-This is a Fork of offical driver to close mongodb Connection.
+This is a Fork of offical driver to close mongodb Connection. Branch v1.5.
 
 [![Travis Build Status](https://api.travis-ci.org/mongodb/mongo-php-driver.png?branch=master)](https://travis-ci.org/mongodb/mongo-php-driver)
 [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/gbd3t99ucib5n8sf?svg=true)](https://ci.appveyor.com/project/jmikola/mongo-php-driver)
